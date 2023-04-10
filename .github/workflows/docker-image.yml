@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Load secrets from 1Password
+      uses: 1Password/load-secrets-action@v1.2.0
+      with:
+        connect-host: https://op.jpcdi.com
+    
+    - name: Load step-ca Credentials
+      id: load-step-creds
+      uses: 1password/load-secrets-action@v1.2.0
+      with:
+        export-env: false
+      env:
+        OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
+        MARIADB_STEP_FINGERPRINT: op://
+
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag step-linuxserver-mariadb:$(date +%s) --build-arg "CA_FINGERPRINT=
