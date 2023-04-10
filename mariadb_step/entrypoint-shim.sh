@@ -7,3 +7,6 @@ if [ "$?" -eq 0 ]; then
 fi
 
 /usr/local/bin/docker-entrypoint.sh "$@"
+
+
+
