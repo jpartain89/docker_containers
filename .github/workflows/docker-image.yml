@@ -25,4 +25,4 @@ jobs:
         MARIADB_STEP_URL: op://dev/Smallstep/CertificateManager/CA URL
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag step-linuxserver-mariadb:$(date +%s) --build-arg "CA_FINGERPRINT=${{ MARIADB_STEP_FINGERPRINT }}" --build-arg "CA_URL=${{ MARIADB_STEP_URL }}"
+      run: docker build . --file Dockerfile --tag step-linuxserver-mariadb:$(date +%s) --build-arg "CA_FINGERPRINT=${{ steps.load-step-ca-credentials.outputs.MARIADB_STEP_FINGERPRINT }}" --build-arg "CA_URL=${{ steps.load-step-ca-credentials.outputs.MARIADB_STEP_URL }}"
