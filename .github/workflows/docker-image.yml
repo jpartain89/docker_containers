@@ -10,9 +10,10 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Load secrets from 1Password
-      uses: 1Password/load-secrets-action@v1.2.0
+      uses: 1Password/load-secrets-action/configure@v1.2.0
       with:
-        OP_CONNECT_HOST: https://op.jpcdi.com
+        connect-host: https://op.jpcdi.com
+        connect-token: ${{ secrets.OP_CONNECT_TOKEN }}
 
     - name: Load step-ca Credentials
       id: load-step-creds
@@ -20,7 +21,6 @@ jobs:
       with:
         export-env: false
       env:
-        OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
         MARIADB_STEP_FINGERPRINT: op://dev/Smallstep/CertificateManager/JPCDI_Authority_Fingerprint
         MARIADB_STEP_URL: op://dev/Smallstep/CertificateManager/CA URL
 
