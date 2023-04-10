@@ -12,7 +12,7 @@ jobs:
     - name: Load secrets from 1Password
       uses: 1Password/load-secrets-action@v1.2.0
       with:
-        connect-host: https://op.jpcdi.com
+        OP_CONNECT_HOST: https://op.jpcdi.com
 
     - name: Load step-ca Credentials
       id: load-step-creds
